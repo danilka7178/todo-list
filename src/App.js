@@ -7,10 +7,12 @@ function App() {
     {
       id: 1,
       text: 'Попробовать создать ToDo',
+      completed: false
     },
     {
       id: 2,
       text: 'Сохранить задачи в массив стейта',
+      completed: false
     },
   ]);
   const [colors, setColors] = React.useState(['grey', 'red', 'blue', 'orange', 'green']);
@@ -20,12 +22,14 @@ function App() {
       if (tasks.length !== 0) {
         setTasks([...tasks, {
           id: tasks[tasks.length - 1].id + 1,
-          text: inputValue
+          text: inputValue,
+          completed: false
         }])
       } else {
         setTasks([...tasks, {
           id: 1,
-          text: inputValue
+          text: inputValue,
+          completed: false
         }])
       };
       setInputValue("");
@@ -33,9 +37,9 @@ function App() {
   };
 
   const someDoWithColors = (e) => {
-    const newColors = [...colors];
-    console.log(newColors);
+
   }
+
 
   return (
     <div className="App">
