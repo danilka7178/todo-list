@@ -1,9 +1,8 @@
 import React from 'react';
 import TodoItem from './components/TodoItem';
 
-const colors = ['grey', 'red', 'blue', 'orange', 'green'];
-
 function App() {
+  const [inputValue, setInputValue] = React.useState("");
   const [tasks, setTasks] = React.useState([
     {
       id: 1,
@@ -14,19 +13,39 @@ function App() {
       text: 'Сохранить задачи в массив стейта',
     },
   ]);
+  const colors = ['grey', 'red', 'blue', 'orange', 'green'];
+
+  const doSetTasks = (e) => {
+    if (e.key === "Enter") {
+      if (tasks.length !== 0) {
+        setTasks([...tasks, {
+          id: tasks[tasks.length - 1].id + 1,
+          text: inputValue
+        }])
+      } else {
+        setTasks([...tasks, {
+          id: 1,
+          text: inputValue
+        }])
+      };
+      setInputValue("");
+    }
+  };
 
   return (
     <div className="App">
       <div className="todo">
         <h2>Список задач</h2>
-        {tasks.map((obj) => (
-          <TodoItem key={obj.id} text={obj.text} />
-        ))}
+        {tasks ? tasks.map((obj) => (
+          <TodoItem key={obj.id} id={obj.id} text={obj.text} tasks={tasks} setTasks={setTasks} />
+        )) : <h3>Задач нет</h3>}
         <div className="todo-input">
-          <input type="text" placeholder="Текст задачи..." />
+          <input type="text" placeholder="Текст задачи..."
+            value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={doSetTasks} />
           <ul>
             {colors.map((color) => (
-              <li className={`todo-color ${color}`}></li>
+              <li onClick={e => console.log(e.target)} className={`todo-color ${color}`} id={colors.indexOf(color)} key={color.toString()} />
             ))}
           </ul>
         </div>
