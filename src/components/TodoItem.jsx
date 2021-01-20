@@ -5,7 +5,7 @@ function TodoItem({ text, tasks, setTasks, id }) {
 
   const [checked, setChecked] = React.useState("")
 
-  function toggleChecked(e) {
+  const toggleChecked = (e) => {
     console.log("click", e.target.id, id);
     const newTasks = tasks.map((arg) => console.log(arg.completed))
   }
