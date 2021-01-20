@@ -15,7 +15,7 @@ function App() {
       completed: false
     },
   ]);
-  const [colors, setColors] = React.useState(['grey', 'red', 'blue', 'orange', 'green']);
+  const colors = ['grey', 'red', 'blue', 'orange', 'green'];
 
   const doSetTasks = (e) => {
     if (e.key === "Enter") {
