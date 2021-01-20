@@ -7,15 +7,18 @@ function App() {
     {
       id: 1,
       text: 'Попробовать создать ToDo',
-      completed: false
+      completed: false,
+      color: ""
     },
     {
       id: 2,
       text: 'Сохранить задачи в массив стейта',
-      completed: false
+      completed: false,
+      color: ""
     },
   ]);
   const colors = ['grey', 'red', 'blue', 'orange', 'green'];
+  const [activeColor, setActiveColor] = React.useState("");
 
   const doSetTasks = (e) => {
     if (e.key === "Enter") {
@@ -23,23 +26,20 @@ function App() {
         setTasks([...tasks, {
           id: tasks[tasks.length - 1].id + 1,
           text: inputValue,
-          completed: false
+          completed: false,
+          color: ""
         }])
       } else {
         setTasks([...tasks, {
           id: 1,
           text: inputValue,
-          completed: false
+          completed: false,
+          color: ""
         }])
       };
       setInputValue("");
     }
   };
-
-  const someDoWithColors = (e) => {
-
-  }
-
 
   return (
     <div className="App">
@@ -54,7 +54,16 @@ function App() {
             onKeyDown={doSetTasks} />
           <ul>
             {colors.map((color) => (
-              <li onClick={someDoWithColors} className={`todo-color ${color}`} id={colors.indexOf(color)} key={color.toString()} />
+              <li onClick={(e) => {
+                setActiveColor(color);
+                if (activeColor) {
+                  console.log(true);
+                  e.target.className += " active"
+                } else {
+                  console.log(false)
+                }
+              }}
+                className={`todo-color ${color}`} id={colors.indexOf(color)} key={color.toString()} />
             ))}
           </ul>
         </div>
