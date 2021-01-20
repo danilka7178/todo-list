@@ -13,7 +13,7 @@ function App() {
       text: 'Сохранить задачи в массив стейта',
     },
   ]);
-  const colors = ['grey', 'red', 'blue', 'orange', 'green'];
+  const [colors, setColors] = React.useState(['grey', 'red', 'blue', 'orange', 'green']);
 
   const doSetTasks = (e) => {
     if (e.key === "Enter") {
@@ -32,6 +32,11 @@ function App() {
     }
   };
 
+  const someDoWithColors = (e) => {
+    const newColors = [...colors];
+    console.log(newColors);
+  }
+
   return (
     <div className="App">
       <div className="todo">
@@ -45,7 +50,7 @@ function App() {
             onKeyDown={doSetTasks} />
           <ul>
             {colors.map((color) => (
-              <li onClick={e => console.log(e.target)} className={`todo-color ${color}`} id={colors.indexOf(color)} key={color.toString()} />
+              <li onClick={someDoWithColors} className={`todo-color ${color}`} id={colors.indexOf(color)} key={color.toString()} />
             ))}
           </ul>
         </div>
