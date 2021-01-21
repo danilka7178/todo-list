@@ -19,6 +19,7 @@ function App() {
   ]);
   const colors = ['grey', 'red', 'blue', 'orange', 'green'];
   const [activeColor, setActiveColor] = React.useState("");
+  const [completed, setCompleted] = React.useState(false);
 
   const doSetTasks = (e) => {
     if (e.key === "Enter") {
@@ -26,44 +27,51 @@ function App() {
         setTasks([...tasks, {
           id: tasks[tasks.length - 1].id + 1,
           text: inputValue,
-          completed: false,
-          color: ""
+          color: activeColor,
+          completed,
         }])
       } else {
         setTasks([...tasks, {
           id: 1,
           text: inputValue,
-          completed: false,
-          color: ""
+          color: activeColor,
+          completed,
         }])
       };
       setInputValue("");
     }
   };
 
+  console.log(tasks);
+
   return (
     <div className="App">
       <div className="todo">
         <h2>Список задач</h2>
         {tasks ? tasks.map((obj) => (
-          <TodoItem key={obj.id} id={obj.id} text={obj.text} tasks={tasks} setTasks={setTasks} />
+          <TodoItem key={obj.id}
+            id={obj.id}
+            text={obj.text}
+            tasks={tasks}
+            setTasks={setTasks}
+            color={obj.color}
+            setCompleted={setCompleted} />
         )) : <h3>Задач нет</h3>}
         <div className="todo-input">
-          <input type="text" placeholder="Текст задачи..."
-            value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+          <input type="text"
+            placeholder="Текст задачи..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={doSetTasks} />
           <ul>
             {colors.map((color) => (
               <li onClick={(e) => {
+                colors.map(color => color)
                 setActiveColor(color);
-                if (activeColor) {
-                  console.log(true);
-                  e.target.className += " active"
-                } else {
-                  console.log(false)
-                }
               }}
-                className={`todo-color ${color}`} id={colors.indexOf(color)} key={color.toString()} />
+                className={`todo-color ${color} ${activeColor === color ? "active" : ""}`}
+                id={colors.indexOf(color)}
+                key={color.toString()} />
             ))}
           </ul>
         </div>

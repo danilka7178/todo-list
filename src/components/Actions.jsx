@@ -1,6 +1,6 @@
 function Actions({ tasks, setTasks, id }) {
    const clickOnClose = (e) => {
-      if (window.confirm("что-что-что, удалить??")) {
+      if (window.confirm("Что-что-что, удалить??")) {
          const newTodos = tasks.filter(item => item.id !== id)
          setTasks(newTodos);
       }
